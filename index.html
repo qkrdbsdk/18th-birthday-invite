@@ -358,8 +358,8 @@
       .court-card { min-height: 290px; }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="/_sdk/8de366929c5f3b48.data_sdk.js" type="text/javascript" integrity="sha512-TyQ8k8cZj66xe/aENmn6RyZpdOFZXbAo5+KBG3PeFM+Q4qMTHU8xAqmq4ADClNfPrstgQYV6OzZHwLTnElzB2g=="></script>
   <script src="/_sdk/0ddbbee1c66b1212.editing_sdk.js" type="text/javascript" integrity="sha512-HQn5LM1yruQSbY78ATUril6QeOJ9xj7KqO64ltLtb4vBwI5Qv3/tloFFOndBPZTNZoeV5xKzuth5y6FTi9crsg=="></script>
   <script src="/_sdk/765e1fea0cec97ce.resizing_sdk.js" type="text/javascript" integrity="sha512-IRTJnqww0+HQ5V/LlWEQrlD5SrYHaVvaeVoNe8HYQXoaguzUGheSd9+n9s6WOgaTcEH0g37DuINHZ9aqfzWjlw=="></script>
@@ -368,12 +368,13 @@
   <div class="progress-rail" aria-hidden="true">
    <div id="progress-bar"></div>
   </div>
-  <section id="envelope-screen" aria-label="Opening invitation" style="touch-action: manipulation;"><img data-template-id="envelope-background" class="canva-image envelope-photo absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/16983061/pexels-photo-16983061.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="Silhouetted trees under a star-filled sky at night">
+  <section id="envelope-screen" aria-label="Opening invitation" style="touch-action: manipulation;">
+   <img data-template-id="envelope-background" class="canva-image envelope-photo absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/16983061/pexels-photo-16983061.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="Silhouetted trees under a star-filled sky at night">
    <div class="envelope-overlay"></div><span class="sparkle" style="top:19%;left:17%"></span> <span class="sparkle" style="top:27%;right:16%;animation-delay:.7s"></span> <span class="sparkle" style="bottom:18%;left:25%;animation-delay:1.2s"></span> <button id="open-envelope" type="button" class="envelope focus:outline-none focus:ring-4 focus:ring-amber-200/60" aria-label="Open Rachelle's birthday invitation">
     <div class="envelope-flap"></div>
     <div class="relative z-10 flex min-h-[290px] flex-col items-center justify-end px-7 pb-8">
-     <p data-template-id="envelope-vines" class="canva-text serif mb-6 italic" style="color: rgb(122, 29, 60); font-weight: 400; font-style: italic; font-size: 20px;">❦ ✦ ❦</p>
-     <div class="seal mb-5"><i data-lucide="sparkles" width="29" height="29"></i>
+     <div class="seal mb-5">
+      <i data-lucide="sparkles" width="29" height="29"></i>
      </div>
      <p data-template-id="envelope-invited" class="canva-text serif italic" style="color: rgb(76, 23, 52); font-weight: 400; font-style: italic; font-size: 30px;">you’re invited</p>
      <p data-template-id="envelope-click" class="canva-text mt-2 uppercase tracking-[.3em]" style="color: rgb(122, 29, 60); font-weight: 600; font-style: normal; font-size: 10px; letter-spacing: 0.12rem;">click to open</p>
@@ -381,11 +382,11 @@
   </section>
   <main id="invitation" class="hidden w-full">
    <section class="night-section relative flex min-h-[620px] items-end">
-    <div class="hero-visual"><img data-template-id="hero-background" class="canva-image hero-photo absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/9007626/pexels-photo-9007626.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="A mystical forest scene with ferns illuminated by glowing fireflies at dusk">
+    <div class="hero-visual">
+     <img data-template-id="hero-background" class="canva-image hero-photo absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/9007626/pexels-photo-9007626.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="A mystical forest scene with ferns illuminated by glowing fireflies at dusk">
     </div><span class="vine-border top-8 left-4">❧</span> <span class="vine-border top-10 right-5 rotate-90">❧</span> <span class="sparkle" style="top:20%;left:25%"></span> <span class="sparkle" style="top:29%;right:20%;animation-delay:.9s"></span>
     <div class="section-content w-full max-w-3xl mx-auto px-6 pb-14 pt-36 text-center">
-     <div class="portrait-placeholder mx-auto mb-7 reveal" aria-label="Replaceable debutante portrait placeholder">
-      <img data-template-id="debutante-portrait" class="canva-image w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/16232478/pexels-photo-16232478.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="A smiling woman with flowers in her hair against a dreamy bokeh background">
+     <div class="portrait-placeholder mx-auto mb-7 reveal" aria-label="Replaceable debutante portrait placeholder"><img data-template-id="debutante-portrait" class="canva-image w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/16232478/pexels-photo-16232478.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="A smiling woman with flowers in her hair against a dreamy bokeh background">
      </div>
      <p data-template-id="hero-kicker" class="canva-text ornament reveal" style="color: rgb(217, 183, 106); font-weight: 700; font-style: normal; font-size: 24px; letter-spacing: 0.18rem;">an enchanted evening awaits</p>
      <h1 data-template-id="hero-title" class="canva-text serif mt-4 font-medium leading-tight reveal delay-1" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 47px;">Rachelle turns 18</h1>
@@ -396,38 +397,46 @@
    <section id="pictorial-gallery" class="night-section px-5 py-14">
     <div class="section-content max-w-5xl mx-auto reveal">
      <div class="text-center">
-      <p class="ornament">✦ ❦ ✦</p>
       <h2 data-template-id="gallery-title" class="canva-text serif mt-2" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 24px;">A GLIMPSE BEFORE THE EVENING</h2>
       <p data-template-id="gallery-copy" class="canva-text mt-3" style="color: rgb(214, 195, 220); font-weight: 400; font-style: normal; font-size: 14px;">An early glimpse of Rachelle’s eighteenth chapter.</p>
      </div>
      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-9">
-      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow"><img data-template-id="gallery-photo-1" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/3094218/pexels-photo-3094218.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Young woman painting in a lush garden">
+      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow">
+       <img data-template-id="gallery-photo-1" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/3094218/pexels-photo-3094218.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Young woman painting in a lush garden">
       </div>
-      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow"><img data-template-id="gallery-photo-2" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/17042073/pexels-photo-17042073.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Young woman holding glowing string lights">
+      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow">
+       <img data-template-id="gallery-photo-2" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/17042073/pexels-photo-17042073.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Young woman holding glowing string lights">
       </div>
-      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow"><img data-template-id="gallery-photo-3" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/10103484/pexels-photo-10103484.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Woman holding flowers by the waterfront">
+      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow">
+       <img data-template-id="gallery-photo-3" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/10103484/pexels-photo-10103484.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Woman holding flowers by the waterfront">
       </div>
-      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow"><img data-template-id="gallery-photo-4" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/6321355/pexels-photo-6321355.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Young woman against a heart-shaped bokeh background">
+      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow">
+       <img data-template-id="gallery-photo-4" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/6321355/pexels-photo-6321355.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Young woman against a heart-shaped bokeh background">
       </div>
-      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow md:col-span-2"><img data-template-id="gallery-photo-5" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/19133858/pexels-photo-19133858.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Woman holding an umbrella adorned with warm lights">
+      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow md:col-span-2">
+       <img data-template-id="gallery-photo-5" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/19133858/pexels-photo-19133858.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Woman holding an umbrella adorned with warm lights">
       </div>
-      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow"><img data-template-id="gallery-photo-6" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/1854131/pexels-photo-1854131.jpeg" alt="A woman poses at night with glowing string lights, creating a dreamy atmosphere.">
+      <div class="image-card photo-pop relative min-h-[220px] overflow-hidden rounded-2xl glow">
+       <img data-template-id="gallery-photo-6" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/1854131/pexels-photo-1854131.jpeg" alt="A woman poses at night with glowing string lights, creating a dreamy atmosphere.">
       </div>
      </div>
     </div>
    </section>
    <section id="countdown-section" class="night-section px-5 py-14">
     <div class="section-content max-w-3xl mx-auto text-center reveal">
-     <p class="ornament">✦ ❧ ✦</p>
      <h2 data-template-id="countdown-title" class="canva-text serif mt-3" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 28px;">THE COUNTDOWN BEGINS</h2>
      <div class="grid grid-cols-4 gap-2 sm:gap-4 mt-8">
-      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4"><strong id="days" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="days-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">DAYS</span>
+      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4">
+       <strong id="days" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="days-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">DAYS</span>
       </div>
-      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4"><strong id="hours" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="hours-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">HOURS</span>
+      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4">
+       <strong id="hours" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="hours-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">HOURS</span>
       </div>
-      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4"><strong id="minutes" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="minutes-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">MINUTES</span>
+      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4">
+       <strong id="minutes" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="minutes-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">MINUTES</span>
       </div>
-      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4"><strong id="seconds" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="seconds-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">SECONDS</span>
+      <div class="glow rounded-xl bg-[#261342]/80 px-2 py-4">
+       <strong id="seconds" class="serif text-3xl sm:text-5xl">--</strong> <span data-template-id="seconds-label" class="canva-text block mt-2 tracking-[.2em]" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 9px;">SECONDS</span>
       </div>
      </div>
      <p data-template-id="save-date" class="canva-text serif mt-8 italic" style="color: rgb(244, 216, 223); font-weight: 400; font-style: italic; font-size: 24px;">save the date</p>
@@ -435,16 +444,17 @@
       <div class="flex items-center justify-between">
        <h3 data-template-id="calendar-month" class="canva-text serif" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 19px;">October 2026</h3><i data-lucide="moon-star" class="text-[#d9b76a]" width="18"></i>
       </div>
-      <div class="grid grid-cols-7 gap-1 mt-5 text-center text-[10px] text-[#d9b76a]"><span>Sun</span><span>Mon</span><span>Tues</span><span>Wed</span><span>Thurs</span><span>Fri</span><span>Sat</span>
+      <div class="grid grid-cols-7 gap-1 mt-5 text-center text-[10px] text-[#d9b76a]">
+       <span>Sun</span><span>Mon</span><span>Tues</span><span>Wed</span><span>Thurs</span><span>Fri</span><span>Sat</span>
       </div>
-      <div class="grid grid-cols-7 gap-1 mt-2 text-sm"><span></span><span></span><span></span><span></span><span class="calendar-day">1</span><span class="calendar-day">2</span><span class="calendar-day">3</span> <span class="calendar-day">4</span><span class="calendar-day">5</span><span class="calendar-day">6</span><span class="calendar-day">7</span><span class="calendar-day">8</span><span class="calendar-day">9</span><span class="calendar-day">10</span> <span class="calendar-day">11</span><span class="calendar-day">12</span><span class="calendar-day">13</span><span class="calendar-day">14</span><span class="calendar-day">15</span><span class="calendar-day">16</span><span class="calendar-day">17</span> <span class="calendar-day">18</span><span class="calendar-day">19</span><span class="calendar-day">20</span><span class="calendar-day">21</span><span class="calendar-day">22</span><span class="calendar-day">23</span><span class="calendar-day">24</span> <span data-template-id="calendar-date" class="canva-text calendar-day calendar-selected" style="background: rgb(143, 37, 73); color: rgb(255, 249, 239); font-weight: 700; font-style: normal; font-size: 16px;">25</span><span class="calendar-day">26</span><span class="calendar-day">27</span><span class="calendar-day">28</span><span class="calendar-day">29</span><span class="calendar-day">30</span><span class="calendar-day">31</span>
+      <div class="grid grid-cols-7 gap-1 mt-2 text-sm">
+       <span></span><span></span><span></span><span></span><span class="calendar-day">1</span><span class="calendar-day">2</span><span class="calendar-day">3</span> <span class="calendar-day">4</span><span class="calendar-day">5</span><span class="calendar-day">6</span><span class="calendar-day">7</span><span class="calendar-day">8</span><span class="calendar-day">9</span><span class="calendar-day">10</span> <span class="calendar-day">11</span><span class="calendar-day">12</span><span class="calendar-day">13</span><span class="calendar-day">14</span><span class="calendar-day">15</span><span class="calendar-day">16</span><span class="calendar-day">17</span> <span class="calendar-day">18</span><span class="calendar-day">19</span><span class="calendar-day">20</span><span class="calendar-day">21</span><span class="calendar-day">22</span><span class="calendar-day">23</span><span class="calendar-day">24</span> <span data-template-id="calendar-date" class="canva-text calendar-day calendar-selected" style="background: rgb(143, 37, 73); color: rgb(255, 249, 239); font-weight: 700; font-style: normal; font-size: 16px;">25</span><span class="calendar-day">26</span><span class="calendar-day">27</span><span class="calendar-day">28</span><span class="calendar-day">29</span><span class="calendar-day">30</span><span class="calendar-day">31</span>
       </div>
      </div>
     </div>
    </section>
    <section class="night-section bg-[#210d31] px-5 py-14">
     <div class="section-content max-w-2xl mx-auto text-center reveal">
-     <p class="ornament">❦</p>
      <h2 data-template-id="formal-title" class="canva-text serif mt-2" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 25px;">I'D LOVE TO HAVE YOU THERE</h2>
      <p data-template-id="formal-message" class="canva-text mt-6 leading-8" style="color: rgb(248, 232, 233); font-weight: 400; font-style: normal; font-size: 14px; line-height: 1.8;">I’m turning 18, and honestly, I can’t think of a better way to celebrate than having the people I love there with me. God has brought me through so much to get to this moment, and I’m grateful for every person He has placed along the way. So come celebrate, laugh, make memories, and step into this new chapter with me ♡</p>
      <div data-template-id="attire-card" class="canva-card mt-8 rounded-2xl border border-[#d9b76a]/30 bg-[#39184a]/60 px-6 py-5" style="background: rgb(57, 24, 74);">
@@ -455,7 +465,8 @@
    </section>
    <section class="night-section px-5 py-14">
     <div class="section-content max-w-4xl mx-auto grid md:grid-cols-2 gap-7 items-center reveal">
-     <div class="image-card relative min-h-[285px] overflow-hidden rounded-2xl glow"><img data-template-id="venue-image" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="canva://MAHVg4sVH1Y/1" alt="Enchanting outdoor dinner setup with fairy lights and candles under a tree">
+     <div class="image-card relative min-h-[285px] overflow-hidden rounded-2xl glow">
+      <img data-template-id="venue-image" class="canva-image absolute inset-0 w-full h-full" loading="lazy" src="canva://MAHVg4sVH1Y/1" alt="Enchanting outdoor dinner setup with fairy lights and candles under a tree">
      </div>
      <div>
       <p class="ornament">THE EVENING AWAITS</p>
@@ -468,7 +479,8 @@ San Jose del Monte, Bulacan</p>
     </div>
    </section>
    <section class="night-section bg-[#741c3c] px-5 py-12">
-    <div class="section-content max-w-xl mx-auto text-center reveal"><i data-lucide="clock-3" class="text-[#f6d98d] mx-auto" width="26"></i>
+    <div class="section-content max-w-xl mx-auto text-center reveal">
+     <i data-lucide="clock-3" class="text-[#f6d98d] mx-auto" width="26"></i>
      <h2 data-template-id="arrival-title" class="canva-text serif mt-3" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 24px;">arrival time</h2>
      <p data-template-id="arrival-time" class="canva-text serif mt-2" style="color: rgb(255, 240, 204); font-weight: 600; font-style: normal; font-size: 40px;">4:00 PM</p>
      <p data-template-id="arrival-copy" class="canva-text mt-4 leading-7" style="color: rgb(255, 249, 239); font-weight: 400; font-style: normal; font-size: 13px; line-height: 1.6;">We’d love to have you with us from the very beginning, so please arrive by 4:00 PM. 
@@ -478,51 +490,43 @@ The entrance and celebration will begin shortly after, and we wouldn’t want yo
    <section class="night-section bg-[#1e1234] px-5 py-14">
     <div class="section-content max-w-2xl mx-auto reveal">
      <div class="text-center">
-      <p class="ornament">❧</p>
       <h2 data-template-id="timeline-title" class="canva-text serif mt-2" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 24px;">an evening in bloom</h2>
       <p data-template-id="timeline-copy" class="canva-text mt-3" style="color: rgb(214, 195, 220); font-weight: 400; font-style: normal; font-size: 14px;">A gentle guide to the celebration.</p>
      </div>
      <div class="relative mt-9 space-y-4">
       <div class="timeline-line"></div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="door-open" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="door-open" width="16"></i>
        </div>
        <p data-template-id="timeline-1" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">Guest arrival</p>
       </div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="clipboard-list" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="clipboard-list" width="16"></i>
        </div>
        <p data-template-id="timeline-2" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">Registration / seating</p>
       </div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="sparkles" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="sparkles" width="16"></i>
        </div>
        <p data-template-id="timeline-3" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">Grand entrance &amp; debutante’s entrance</p>
       </div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="flame" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="flame" width="16"></i>
        </div>
        <p data-template-id="timeline-4" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">18 candles &amp; 18 gifts</p>
       </div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="flower-2" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="flower-2" width="16"></i>
        </div>
        <p data-template-id="timeline-5" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">18 roses, shots &amp; bills</p>
       </div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="utensils" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="utensils" width="16"></i>
        </div>
        <p data-template-id="timeline-6" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">Dinner &amp; program highlights</p>
       </div>
       <div class="relative flex gap-4">
-       <div class="timeline-dot">
-        <i data-lucide="heart" width="16"></i>
+       <div class="timeline-dot"><i data-lucide="heart" width="16"></i>
        </div>
        <p data-template-id="timeline-7" class="canva-text pt-2" style="color: rgb(246, 233, 237); font-weight: 400; font-style: normal; font-size: 16px;">Closing / thanksgiving</p>
       </div>
@@ -532,7 +536,6 @@ The entrance and celebration will begin shortly after, and we wouldn’t want yo
    <section class="night-section px-5 py-16">
     <div class="section-content max-w-5xl mx-auto reveal">
      <div class="text-center">
-      <p class="ornament">❦ ✦ ❦</p>
       <h2 data-template-id="court-title" class="canva-text serif mt-2" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 28px;">The Debutant’s Court</h2>
       <p data-template-id="court-copy" class="canva-text mt-3" style="color: rgb(214, 195, 220); font-weight: 400; font-style: normal; font-size: 14px;">With love, these dear people will make the evening shine.</p>
      </div>
@@ -670,9 +673,9 @@ Mowah Ihnie</p>
      </div>
     </div>
    </section>
-   <section class="night-section bg-[#140a26] px-5 py-20"><span class="sparkle" style="top:18%;left:14%"></span> <span class="sparkle" style="top:28%;right:17%;animation-delay:.6s"></span> <span class="sparkle" style="bottom:23%;left:28%;animation-delay:1.3s"></span>
+   <section class="night-section bg-[#140a26] px-5 py-20">
+    <span class="sparkle" style="top:18%;left:14%"></span> <span class="sparkle" style="top:28%;right:17%;animation-delay:.6s"></span> <span class="sparkle" style="bottom:23%;left:28%;animation-delay:1.3s"></span>
     <div class="section-content max-w-xl mx-auto text-center reveal">
-     <p data-template-id="rsvp-kicker" class="canva-text ornament" style="color: rgb(217, 183, 106); font-weight: 600; font-style: normal; font-size: 10px; letter-spacing: 0.12rem;">✦ THE LAST PAGE OF THIS LITTLE FAIRYTALE ✦</p>
      <h2 data-template-id="rsvp-title" class="canva-text serif mt-4" style="color: rgb(255, 249, 239); font-weight: 500; font-style: normal; font-size: 24px;">💌 RSVP</h2>
      <p data-template-id="rsvp-copy" class="canva-text mt-5 leading-7" style="color: rgb(237, 221, 230); font-weight: 400; font-style: normal; font-size: 16px; line-height: 1.6;">Kindly confirm your attendance through the Google Form so we can prepare a beautiful evening for you.</p><a data-template-id="rsvp-button" class="canva-button inline-flex items-center gap-2 mt-8 rounded-full px-7 py-4 uppercase tracking-[.18em] shadow-[0_0_30px_rgba(199,68,110,.62)] hover:bg-[#bd3c63] hover:shadow-[0_0_38px_rgba(244,216,223,.72)] focus:outline-none focus:ring-2 focus:ring-[#f4d8df]" href="https://forms.gle/jvNsVbx9786agqbP6" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank', 'noopener,noreferrer'); return false;" style="background: rgb(161, 42, 80); color: rgb(255, 249, 239);"> <span data-template-id="rsvp-button-label" class="canva-text" style="color: rgb(255, 249, 239); font-weight: 600; font-style: normal; font-size: 14px;">✦ Click Here to RSVP</span> <i data-lucide="send" width="16"></i> </a>
      <p data-template-id="rsvp-end-note" class="canva-text serif mt-8 italic" style="color: rgb(244, 216, 223); font-weight: 400; font-style: italic; font-size: 18px;">we can’t wait to celebrate with you!</p><i data-lucide="chevrons-down" class="scroll-indicator mt-9 text-[#d9b76a]" width="24"></i>
