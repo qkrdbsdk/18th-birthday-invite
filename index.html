@@ -765,13 +765,32 @@ Reign Zyphris</p>
 document.addEventListener("DOMContentLoaded", () => {
   lucide.createIcons();
 
-  // 1. DYNAMICALLY CREATE AND ATTACH THE GOOGLE-STYLE SUGGESTION DATALIST
   const nameScreen = document.getElementById("name-screen");
   const roleScreen = document.getElementById("role-screen");
   const invitation = document.getElementById("invitation");
   const envelopeScreen = document.getElementById("envelope-screen");
   const guestRoleMessage = document.getElementById("guest-role-message");
   const guestNameInput = document.getElementById("guest-name");
+
+  // DYNAMICALLY INJECT THE MOBILE DROPDOWN BOX STRUCTURE
+  let suggestionsBox = document.getElementById("name-suggestions-box");
+  if (guestNameInput && !suggestionsBox) {
+    guestNameInput.removeAttribute("list"); // Remove native datalist connection completely
+    guestNameInput.setAttribute("autocomplete", "off");
+    guestNameInput.setAttribute("placeholder", "Type your nickname or name...");
+    
+    const wrapper = guestNameInput.parentNode;
+    if (wrapper) {
+      wrapper.style.position = "relative";
+      wrapper.style.textAlign = "left";
+      
+      suggestionsBox = document.createElement("div");
+      suggestionsBox.id = "name-suggestions-box";
+      // Using solid inline tailwind classes so it stands out perfectly on small phone viewports
+      suggestionsBox.className = "hidden absolute left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-lg border border-[#d9b76a]/30 bg-[#1a0f30] z-50 shadow-2xl p-1";
+      wrapper.appendChild(suggestionsBox);
+    }
+  }
 
   // Verified Entourage Court Names Database
   const debutanteCourts = {
@@ -782,26 +801,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "18 candles": ["Careen", "Yhurie Stefhan", "Achilles Paul", "Ivy", "Rhian Mae", "Trizh Lorraine", "Maia Antoinette", "Ethan James", "Justine", "Reinlee", "Myla", "Reign Sophian", "John Nasty", "Ma'am Gab", "Ma'am Eunice", "Sir Jayson", "Tito Aris", "Reign Zyphris"]
   };
 
-  // Flatten out names database array
   const allCourtNames = [...new Set(Object.values(debutanteCourts).flat())];
-
-  // Create the Google-style datalist elements
-  if (guestNameInput) {
-    guestNameInput.setAttribute("list", "court-guests-list");
-    guestNameInput.setAttribute("placeholder", "Type your nickname or name...");
-    
-    const datalist = document.createElement("datalist");
-    datalist.id = "court-guests-list";
-    
-    // Populate autocomplete items
-    allCourtNames.forEach(name => {
-      const option = document.createElement("option");
-      option.value = name;
-      datalist.appendChild(option);
-    });
-    
-    guestNameInput.parentNode.appendChild(datalist);
-  }
 
   function proceedToInvitation() {
     nameScreen.classList.add("hidden");
@@ -818,7 +818,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 200);
   }
 
-  // STEP 1: Click Envelope Button -> Opens the custom inline Name input layout screen
   if (document.getElementById("open-envelope")) {
     document.getElementById("open-envelope").addEventListener("click", () => {
       envelopeScreen.classList.add("opened");
@@ -827,10 +826,62 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // STEP 2: Handle Submit Form Verification Logic
+  // CUSTOM REAL-TIME SEARCH BOX ENGINE FOR MOBILE VIEWPORTS 📱
+  if (guestNameInput && suggestionsBox) {
+    // Triggers letter-by-letter on both physical keyboards and virtual mobile touchpads
+    guestNameInput.addEventListener("input", () => {
+      let value = guestNameInput.value.trim().toLowerCase();
+      suggestionsBox.innerHTML = "";
+
+      if (!value) {
+        suggestionsBox.classList.add("hidden");
+        return;
+      }
+
+      let matches = allCourtNames.filter(name => {
+        let cleanName = name.toLowerCase();
+        let nameParts = cleanName.split(/\s+/).filter(p => !["tita", "tito", "sir", "ma'am", "maam", "lolo", "ninang", "ninong", "mowah"].includes(p));
+        return nameParts.some(part => part.startsWith(value)) || cleanName.includes(value);
+      });
+
+      if (matches.length > 0) {
+        suggestionsBox.classList.remove("hidden");
+        
+        let header = document.createElement("div");
+        header.className = "text-[11px] text-[#c8b8da] opacity-60 px-3 py-1.5 border-b border-[#d9b76a]/10 font-medium italic";
+        header.textContent = "Suggested Names From Entourage:";
+        suggestionsBox.appendChild(header);
+
+        matches.forEach(name => {
+          let row = document.createElement("div");
+          row.className = "px-3 py-2.5 cursor-pointer text-sm text-gray-200 hover:bg-[#8f2549] hover:text-white transition-colors rounded-md active:bg-[#8f2549]";
+          row.textContent = name;
+          
+          // Tap selection fires the auto-fill form submission sequence instantly
+          row.addEventListener("click", () => {
+            guestNameInput.value = name;
+            suggestionsBox.classList.add("hidden");
+            document.getElementById("guest-name-form").requestSubmit();
+          });
+          suggestionsBox.appendChild(row);
+        });
+      } else {
+        suggestionsBox.classList.add("hidden");
+      }
+    });
+
+    // Close suggestions box instantly if user taps away onto the background mesh layout layers
+    document.addEventListener("click", (e) => {
+      if (!guestNameInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+        suggestionsBox.classList.add("hidden");
+      }
+    });
+  }
+
   if (document.getElementById("guest-name-form")) {
     document.getElementById("guest-name-form").addEventListener("submit", (e) => {
       e.preventDefault();
+      if (suggestionsBox) suggestionsBox.classList.add("hidden");
       let userName = guestNameInput.value.trim();
 
       if (!userName) {
@@ -841,7 +892,6 @@ document.addEventListener("DOMContentLoaded", () => {
       let foundCourts = [];
       let cleanInput = userName.toLowerCase();
 
-      // Check which entourage group matches the submitted name string
       for (let courtName in debutanteCourts) {
         let isMatchInCourt = debutanteCourts[courtName].some(courtFullName => {
           return courtFullName.toLowerCase() === cleanInput || courtFullName.toLowerCase().includes(cleanInput);
@@ -852,7 +902,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Transition views to the status greeting banner
       nameScreen.classList.add("hidden");
       nameScreen.classList.remove("flex");
       roleScreen.classList.remove("hidden");
@@ -866,7 +915,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // STEP 3: Handle navigation on screen buttons
   if (document.getElementById("name-skip")) {
     document.getElementById("name-skip").addEventListener("click", () => {
       proceedToInvitation();
@@ -926,8 +974,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
     const bar = document.getElementById("progress-bar");
-    if (bar) bar.style.width = `${progress}%`;
-  }, { passive: true });
+if (bar) bar.style.width = `${progress}%`;
+}, { passive: true });
 });
 </script>
 </body>
