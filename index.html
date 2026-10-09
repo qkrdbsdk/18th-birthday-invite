@@ -347,16 +347,12 @@
     .scroll-indicator {
       animation: float 2s ease-in-out infinite;
     }
-
-    @media (max-width: 640px) {
-      .vine-border { font-size: 2.5rem; }
-      .timeline-line { left: 17px; }
-      .timeline-dot {
-        width: 35px;
-        height: 35px;
-      }
-      .court-card { min-height: 290px; }
-    }
+@media (max-width: 640px) {
+  #name-screen, #role-screen {
+    align-items: flex-start !important;
+    padding-top: 5vh !important;
+  }
+}
   </style>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
@@ -778,7 +774,7 @@ document.addEventListener("DOMContentLoaded", () => {
     skipBtn.remove();
   }
 
-  // DYNAMICALLY INJECT THE MOBILE DROPDOWN BOX STRUCTURE
+  // DYNAMICALLY INJECT THE MOBILE DROPDOWN BOX STRUCTURE (UPWARD FACING)
   let suggestionsBox = document.getElementById("name-suggestions-box");
   if (guestNameInput && !suggestionsBox) {
     guestNameInput.removeAttribute("list");
@@ -792,7 +788,8 @@ document.addEventListener("DOMContentLoaded", () => {
       
       suggestionsBox = document.createElement("div");
       suggestionsBox.id = "name-suggestions-box";
-      suggestionsBox.className = "hidden absolute left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-lg border border-[#d9b76a]/30 bg-[#1a0f30] z-50 shadow-2xl p-1";
+      suggestionsBox.className = "absolute left-0 right-0 bottom-full mb-2 max-h-40 overflow-y-auto rounded-lg border border-[#d9b76a]/30 bg-[#1a0f30] shadow-2xl p-1 hidden";
+      suggestionsBox.style.zIndex = "9999";
       wrapper.appendChild(suggestionsBox);
     }
   }
@@ -831,7 +828,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // CUSTOM REAL-TIME SEARCH BOX ENGINE FOR MOBILE VIEWPORTS 📱
+  // REAL-TIME DROPDOWN SUGGESTION LOGIC 🔍
   if (guestNameInput && suggestionsBox) {
     guestNameInput.addEventListener("input", () => {
       let value = guestNameInput.value.trim().toLowerCase();
@@ -886,14 +883,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (suggestionsBox) suggestionsBox.classList.add("hidden");
       let userName = guestNameInput.value.trim();
 
-      // REQUIRE A NAME: If the input is empty, shake or alert the user instead of letting them pass
       if (!userName) {
         guestNameInput.style.borderColor = "#a12a50";
         guestNameInput.focus();
         return;
       }
 
-      // Reset border color if they typed something
       guestNameInput.style.borderColor = "rgba(217, 183, 106, 0.5)";
 
       let foundCourts = [];
@@ -976,7 +971,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
     const bar = document.getElementById("progress-bar");
     if (bar) bar.style.width = `${progress}%`;
-}, { passive: true });
+  }, { passive: true });
 });
 </script>
 </body>
