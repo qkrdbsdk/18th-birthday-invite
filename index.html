@@ -380,7 +380,36 @@
      <p data-template-id="envelope-click" class="canva-text mt-2 uppercase tracking-[.3em]" style="color: rgb(122, 29, 60); font-weight: 600; font-style: normal; font-size: 10px; letter-spacing: 0.12rem;">click to open</p>
     </div></button>
   </section>
+   <section id="name-screen" class="hidden night-section min-h-screen w-full items-center justify-center px-5 py-10">
+    <div class="section-content glow w-full max-w-md rounded-2xl border border-[#d9b76a]/40 bg-[#211333]/90 p-7 text-center">
+      <h2 class="serif text-3xl text-[#fff9ef]">What’s your name?</h2>
+      <p class="mt-3 text-[#d6c3dc]">We’ll check whether you have a special role in the celebration.</p>
+      <form id="guest-name-form" class="mt-6" onsubmit="event.preventDefault()">
+        <label for="guest-name" class="mb-2 block text-left text-sm text-[#f4d8df]">Your name</label>
+        <input id="guest-name" name="guest-name" type="text" autocomplete="name"
+          placeholder="Enter your name"
+          class="w-full rounded-lg border border-[#d9b76a]/50 bg-[#160d2b] px-4 py-3 text-white">
+        <button type="submit" class="mt-4 w-full rounded-full bg-[#8f2549] px-5 py-3 font-semibold text-white">
+          Continue
+        </button>
+      </form>
+      <button id="name-skip" type="button" class="mt-4 text-sm text-[#d9b76a] underline">
+        Skip and view invitation
+      </button>
+    </div>
+  </section>
+
+  <section id="role-screen" class="hidden night-section min-h-screen w-full items-center justify-center px-5 py-10" aria-live="polite">
+    <div class="section-content glow w-full max-w-md rounded-2xl border border-[#d9b76a]/40 bg-[#211333]/90 p-7 text-center">
+      <p id="guest-role-message" class="serif text-2xl leading-relaxed text-[#fff9ef]"></p>
+      <button id="role-continue" type="button" class="mt-7 rounded-full bg-[#8f2549] px-6 py-3 font-semibold text-white">
+        Continue to invitation
+      </button>
+    </div>
+  </section>
+
   <main id="invitation" class="hidden w-full">
+    <!-- ...existing invitation content continues here... -->
    <section class="night-section relative flex min-h-[620px] items-end">
     <div class="hero-visual">
      <img data-template-id="hero-background" class="canva-image hero-photo absolute inset-0 w-full h-full" loading="lazy" src="https://images.pexels.com/photos/9007626/pexels-photo-9007626.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="A mystical forest scene with ferns illuminated by glowing fireflies at dusk">
@@ -732,69 +761,130 @@ Reign Zyphris</p>
     </div>
    </section>
   </main>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      lucide.createIcons();
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  lucide.createIcons();
 
-      const invitation = document.getElementById("invitation");
-      const envelopeScreen = document.getElementById("envelope-screen");
+  const invitation = document.getElementById("invitation");
+  const envelopeScreen = document.getElementById("envelope-screen");
+  const nameScreen = document.getElementById("name-screen");
+  const roleScreen = document.getElementById("role-screen");
+  const guestRoleMessage = document.getElementById("guest-role-message");
+  const guestNameInput = document.getElementById("guest-name");
 
-      document.getElementById("open-envelope").addEventListener("click", () => {
-        envelopeScreen.classList.add("opened");
-        invitation.classList.remove("hidden");
-        invitation.style.animation = "pageIn 0.8s ease both";
+  // Verified Entourage Court Names Database
+  const debutanteCourts = {
+    "18 shots": ["Alvin Bernardo", "Reymond Tingco", "Bencer Oliva", "Joel Alhambra", "Jhong Alhambra", "Aris Tantiongco", "Marlon Acosta", "Topher Aguilar", "Isidro Edoloverio", "Rodeto Martillos", "Juan Custoya", "Ernest Balanzat", "Michael Francisco", "PJ Magcaling", "Jewel Mateo", "RoseMarie Cayas", "Danillo Bondoc", "Rowell Bernardo"],
+    "18 gifts": ["Ninang Joyce", "Pastor Ram", "Tita Roselyn", "Tita Jeremy", "Tita Gladys", "Tita Anna", "Tita Jolina", "Tito Mark Anthony", "Philip Andrew", "Ma'am Cecille", "Sir Bryan", "John Nasty", "Ivy", "Rhian Mae", "Xyriel", "Tita Elgie", "Tito RonRon", "Reign Zyphris"],
+    "18 roses": ["BanJoshua Garcia", "Manuel Vince", "JV", "Jerold Vhaness", "John Patrick", "Ethan James", "John Nasty", "Harvey Lance", "Achilles Paul", "John Aldrich", "Lloyd", "Jover", "Gian Karl", "John Craig", "Nash", "Lolo Philip", "Lolo Eddie", "Rowell"],
+    "18 bills": ["Mowah Flor Oliva", "Mowah Neneng Nicolas", "Ninang Joyce Bernardo", "Tita Dhev Galleto", "Tita Agnes Bernardo", "Tito Jovan Bernardo", "Tita Mary Con Perez", "Tita Dianne Lorenzo", "Tito Ian Santos", "Ma'am Rachelle Ariate", "Sir Cyrus del Rosario", "Ninang TinTin Escaro", "Ninang Nancy Balmeo", "Tita Ronalyn Maranan", "Ninong Ryan Garcia", "Ma'am Rowena Pimentel", "Engr. Christopher Vidallon", "Mowah Ihnie"],
+    "18 candles": ["Careen", "Yhurie Stefhan", "Achilles Paul", "Ivy", "Rhian Mae", "Trizh Lorraine", "Maia Antoinette", "Ethan James", "Justine", "Reinlee", "Myla", "Reign Sophian", "John Nasty", "Ma'am Gab", "Ma'am Eunice", "Sir Jayson", "Tito Aris", "Reign Zyphris"]
+  };
 
-        galleryObserver.observe(document.getElementById("pictorial-gallery"));
+  // Helper function to transition straight into the main invitation view
+  function proceedToInvitation() {
+    nameScreen.classList.add("hidden");
+    roleScreen.classList.add("hidden");
+    invitation.classList.remove("hidden");
+    invitation.style.animation = "pageIn 0.8s ease both";
+    galleryObserver.observe(document.getElementById("pictorial-gallery"));
+    
+    setTimeout(() => {
+      document.querySelector(".hero-visual").scrollIntoView({ behavior: "smooth" });
+    }, 200);
+  }
 
-        setTimeout(() => {
-          document.querySelector(".hero-visual").scrollIntoView({ behavior: "smooth" });
-        }, 200);
-      });
+  // STEP 1: Click Envelope Button -> Opens the custom inline Name input layout screen
+  document.getElementById("open-envelope").addEventListener("click", () => {
+    envelopeScreen.classList.add("opened");
+    nameScreen.classList.remove("hidden");
+    nameScreen.classList.add("flex");
+  });
 
-      document.getElementById("continue-button").addEventListener("click", () => {
-        const gallery = document.getElementById("pictorial-gallery");
-        gallery.scrollIntoView({ behavior: "smooth" });
-      });
+  // STEP 2: Handle Submit Form Logic
+  document.getElementById("guest-name-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    let userName = guestNameInput.value.trim();
 
-      const galleryObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("photos-popped");
-            galleryObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.18 });
+    if (!userName) {
+      proceedToInvitation();
+      return;
+    }
 
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
+    let foundCourts = [];
+    let cleanInput = userName.toLowerCase();
 
-      document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
-
-      function updateCountdown() {
-        const eventDate = new Date("2026-10-25T16:00:00+08:00").getTime();
-        const distance = Math.max(0, eventDate - Date.now());
-
-        document.getElementById("days").textContent = String(Math.floor(distance / 86400000)).padStart(2, "0");
-        document.getElementById("hours").textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0");
-        document.getElementById("minutes").textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0");
-        document.getElementById("seconds").textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, "0");
+    // Map matches inside categories
+    for (let courtName in debutanteCourts) {
+      let match = debutanteCourts[courtName].some(name => name.toLowerCase().includes(cleanInput));
+      if (match) {
+        foundCourts.push(courtName);
       }
+    }
 
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
+    // Process logic results based on user status
+    if (foundCourts.length > 0) {
+      nameScreen.classList.add("hidden");
+      nameScreen.classList.remove("flex");
+      roleScreen.classList.remove("hidden");
+      roleScreen.classList.add("flex");
+      guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.`;
+    } else {
+      proceedToInvitation();
+    }
+  });
 
-      window.addEventListener("scroll", () => {
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
-        document.getElementById("progress-bar").style.width = `${progress}%`;
-      }, { passive: true });
+  // STEP 3: Handle navigation on screen buttons
+  document.getElementById("name-skip").addEventListener("click", () => {
+    proceedToInvitation();
+  });
+
+  document.getElementById("role-continue").addEventListener("click", () => {
+    proceedToInvitation();
+  });
+
+  document.getElementById("continue-button").addEventListener("click", () => {
+    const gallery = document.getElementById("pictorial-gallery");
+    gallery.scrollIntoView({ behavior: "smooth" });
+  });
+
+  const galleryObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("photos-popped");
+        galleryObserver.unobserve(entry.target);
+      }
     });
-  </script>
- 
-</body></html>
+  }, { threshold: 0.18 });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+
+  function updateCountdown() {
+    const eventDate = new Date("2026-10-25T16:00:00+08:00").getTime();
+    const distance = Math.max(0, eventDate - Date.now());
+    document.getElementById("days").textContent = String(Math.floor(distance / 86400000)).padStart(2, "0");
+    document.getElementById("hours").textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, "0");
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  window.addEventListener("scroll", () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+    document.getElementById("progress-bar").style.width = `${progress}%`;
+  }, { passive: true });
+});
+</script>
+</body>
+</html>
