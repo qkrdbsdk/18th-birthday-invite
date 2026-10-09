@@ -777,7 +777,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (guestNameInput && !suggestionsBox) {
     guestNameInput.removeAttribute("list"); // Remove native datalist connection completely
     guestNameInput.setAttribute("autocomplete", "off");
-    guestNameInput.setAttribute("placeholder", "Type your nickname or name...");
+    guestNameInput.setAttribute("placeholder", "Type your name...");
     
     const wrapper = guestNameInput.parentNode;
     if (wrapper) {
