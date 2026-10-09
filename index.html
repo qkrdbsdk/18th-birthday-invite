@@ -803,7 +803,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nameScreen.classList.add("flex");
   });
 
-  // STEP 2: Handle Submit Form Logic
+  // STEP 2: Handle Submit Form Logic with Two-Way Overlap Matching
   document.getElementById("guest-name-form").addEventListener("submit", (e) => {
     e.preventDefault();
     let userName = guestNameInput.value.trim();
@@ -816,10 +816,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let foundCourts = [];
     let cleanInput = userName.toLowerCase();
 
-    // Map matches inside categories
+    // Loop over each court category
     for (let courtName in debutanteCourts) {
-      let match = debutanteCourts[courtName].some(name => name.toLowerCase().includes(cleanInput));
-      if (match) {
+      let isMatchInCourt = debutanteCourts[courtName].some(courtFullName => {
+        let cleanCourtName = courtFullName.toLowerCase();
+        
+        let courtWords = cleanCourtName.split(/\s+/).filter(word => 
+          word.length > 2 && !["tita", "tito", "sir", "ma'am", "maam", "lolo", "ninang", "ninong", "mowah", "pastor", "engr"].includes(word)
+        );
+
+        return courtWords.some(word => cleanInput.includes(word));
+      });
+
+      if (isMatchInCourt) {
         foundCourts.push(courtName);
       }
     }
@@ -830,11 +839,12 @@ document.addEventListener("DOMContentLoaded", () => {
     roleScreen.classList.remove("hidden");
     roleScreen.classList.add("flex");
 
-    // Clear and direct messages
+    // Display customized results
     if (foundCourts.length > 0) {
       guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.`;
     } else {
-      guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are arriving as a <span style="color:#f4d8df; font-weight:600;">guest</span> and are not part of the debutante's court.`;
+      // Your chosen explicit but friendly fallback message
+      guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>Your name isn't listed in any of the 18s courts, so we have you down as a regular guest.`;
     }
   });
 
