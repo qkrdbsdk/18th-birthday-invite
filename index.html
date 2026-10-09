@@ -772,27 +772,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const guestRoleMessage = document.getElementById("guest-role-message");
   const guestNameInput = document.getElementById("guest-name");
 
-  // RESPONSIVE SCREEN POSITIONING FIX: Keep horizontally centered, but lift upwards
-  if (nameScreen) {
-    nameScreen.style.setProperty("display", "flex", "important");
-    nameScreen.style.setProperty("justify-content", "center", "important"); // Center horizontally
-    nameScreen.style.setProperty("align-items", "flex-start", "important"); // Align to top room path
-    nameScreen.style.setProperty("padding-top", "5vh", "important"); // Standard top space cushion
-  }
-  if (roleScreen) {
-    roleScreen.style.setProperty("display", "flex", "important");
-    roleScreen.style.setProperty("justify-content", "center", "important");
-    roleScreen.style.setProperty("align-items", "flex-start", "important");
-    roleScreen.style.setProperty("padding-top", "5vh", "important");
-  }
-
   // REMOVE THE SKIP BUTTON FROM THE HTML DYNAMICALLY TO CLEAN IT UP
   const skipBtn = document.getElementById("name-skip");
   if (skipBtn) {
     skipBtn.remove();
   }
 
-  // DYNAMICALLY INJECT THE MOBILE DROPDOWN BOX STRUCTURE (UPWARD FACING)
+  // DYNAMICALLY INJECT THE MOBILE DROPDOWN BOX STRUCTURE
   let suggestionsBox = document.getElementById("name-suggestions-box");
   if (guestNameInput && !suggestionsBox) {
     guestNameInput.removeAttribute("list");
@@ -806,8 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       suggestionsBox = document.createElement("div");
       suggestionsBox.id = "name-suggestions-box";
-      suggestionsBox.className = "absolute left-0 right-0 bottom-full mb-2 max-h-40 overflow-y-auto rounded-lg border border-[#d9b76a]/30 bg-[#1a0f30] shadow-2xl p-1 hidden";
-      suggestionsBox.style.zIndex = "9999";
+      suggestionsBox.className = "hidden absolute left-0 right-0 mt-1 max-h-48 overflow-y-auto rounded-lg border border-[#d9b76a]/30 bg-[#1a0f30] z-50 shadow-2xl p-1";
       wrapper.appendChild(suggestionsBox);
     }
   }
@@ -825,7 +810,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function proceedToInvitation() {
     nameScreen.classList.add("hidden");
+    nameScreen.classList.remove("flex");
     roleScreen.classList.add("hidden");
+    roleScreen.classList.remove("flex");
     invitation.classList.remove("hidden");
     invitation.style.animation = "pageIn 0.8s ease both";
     galleryObserver.observe(document.getElementById("pictorial-gallery"));
@@ -840,10 +827,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("open-envelope").addEventListener("click", () => {
       envelopeScreen.classList.add("opened");
       nameScreen.classList.remove("hidden");
+      nameScreen.classList.add("flex");
     });
   }
 
-  // REAL-TIME DROPDOWN SUGGESTION LOGIC 🔍
+  // CUSTOM REAL-TIME SEARCH BOX ENGINE FOR MOBILE VIEWPORTS 📱
   if (guestNameInput && suggestionsBox) {
     guestNameInput.addEventListener("input", () => {
       let value = guestNameInput.value.trim().toLowerCase();
@@ -898,12 +886,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (suggestionsBox) suggestionsBox.classList.add("hidden");
       let userName = guestNameInput.value.trim();
 
+      // REQUIRE A NAME: If the input is empty, shake or alert the user instead of letting them pass
       if (!userName) {
         guestNameInput.style.borderColor = "#a12a50";
         guestNameInput.focus();
         return;
       }
 
+      // Reset border color if they typed something
       guestNameInput.style.borderColor = "rgba(217, 183, 106, 0.5)";
 
       let foundCourts = [];
@@ -920,7 +910,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       nameScreen.classList.add("hidden");
+      nameScreen.classList.remove("flex");
       roleScreen.classList.remove("hidden");
+      roleScreen.classList.add("flex");
 
       if (foundCourts.length > 0) {
         guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.`;
@@ -969,7 +961,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const daysEl = document.getElementById("days");
     const hoursEl = document.getElementById("hours");
     const minsEl = document.getElementById("minutes");
-    const secsEl = document.getElementById("seconds"); 
+    const secsEl = document.getElementById("seconds");
+    
     if (daysEl) daysEl.textContent = String(Math.floor(distance / 86400000)).padStart(2, "0");
     if (hoursEl) hoursEl.textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0");
     if (minsEl) minsEl.textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0");
@@ -977,14 +970,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
   window.addEventListener("scroll", () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
     const bar = document.getElementById("progress-bar");
     if (bar) bar.style.width = `${progress}%`;
-  }, { passive: true });
+}, { passive: true });
 });
 </script>
 </body>
 </html>
-
