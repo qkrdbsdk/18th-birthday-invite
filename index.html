@@ -910,9 +910,9 @@ document.addEventListener("DOMContentLoaded", () => {
       roleScreen.classList.add("flex");
 
       if (foundCourts.length > 0) {
-        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court. Please proceed to the invitation and take a moment to fill out the RSVP form at the very end of the page to let us know if you can attend or not.`;
+        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court. Please proceed to the invitation to see the details and take a moment to fill out the RSVP form at the very end of the page to let us know if you can attend or not.`;
       } else {
-        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>Your name isn't listed in any of the 18s courts, so we have you down as a regular guest. If you'd like to attend, please proceed to the invitation and make sure to fill out the RSVP form at the very end of the page.`;
+        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>Your name isn't listed in any of the 18s courts. Feel free to check out the invitation below! There’s an RSVP form at the very end of the page to give us a quick update on your availability.`;
       }
     });
   }
