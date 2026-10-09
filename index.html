@@ -909,15 +909,17 @@ document.addEventListener("DOMContentLoaded", () => {
       roleScreen.classList.remove("hidden");
       roleScreen.classList.add("flex");
 
-            if (foundCourts.length > 0) {
-        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br><br>` +
-          `You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.<br><br>` +
-          `Please proceed to the invitation to see the details and take a moment to fill out the RSVP form at the very end of the page to let us know if you can attend or not.`;
+                  if (foundCourts.length > 0) {
+        guestRoleMessage.innerHTML = 
+          `<div style="margin-bottom: 16px;">Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!</div>` +
+          `<div style="margin-bottom: 16px;">You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.</div>` +
+          `<div>Please proceed to the invitation to see the details and take a moment to fill out the RSVP form at the very end of the page to let us know if you can attend or not.</div>`;
       } else {
-        // Updated to separate every sentence with a clean double line-break 👇
-        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br><br>` +
-          `Your name isn't listed in any of the 18s courts.<br><br>` +
-          `Feel free to check out the invitation below. There’s an RSVP form at the very end of the page to give us a quick update on your availability!`;
+        // FORCES PERFECT BOX SPACING ON PHONES VIA INLINE MARGIN BLOCK TAGS 👇
+        guestRoleMessage.innerHTML = 
+          `<div style="margin-bottom: 16px;">Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!</div>` +
+          `<div style="margin-bottom: 16px;">Your name isn't listed in any of the 18s courts.</div>` +
+          `<div style="margin-bottom: 16px;">Feel free to check out the invitation below. There’s an RSVP form at the very end of the page to give us a quick update on your availability!</div>`;
       }
     });
   }
