@@ -765,10 +765,11 @@ Reign Zyphris</p>
 document.addEventListener("DOMContentLoaded", () => {
   lucide.createIcons();
 
-  const invitation = document.getElementById("invitation");
-  const envelopeScreen = document.getElementById("envelope-screen");
+  // 1. DYNAMICALLY CREATE AND ATTACH THE GOOGLE-STYLE SUGGESTION DATALIST
   const nameScreen = document.getElementById("name-screen");
   const roleScreen = document.getElementById("role-screen");
+  const invitation = document.getElementById("invitation");
+  const envelopeScreen = document.getElementById("envelope-screen");
   const guestRoleMessage = document.getElementById("guest-role-message");
   const guestNameInput = document.getElementById("guest-name");
 
@@ -781,7 +782,27 @@ document.addEventListener("DOMContentLoaded", () => {
     "18 candles": ["Careen", "Yhurie Stefhan", "Achilles Paul", "Ivy", "Rhian Mae", "Trizh Lorraine", "Maia Antoinette", "Ethan James", "Justine", "Reinlee", "Myla", "Reign Sophian", "John Nasty", "Ma'am Gab", "Ma'am Eunice", "Sir Jayson", "Tito Aris", "Reign Zyphris"]
   };
 
-  // Helper function to transition straight into the main invitation view
+  // Flatten out names database array
+  const allCourtNames = [...new Set(Object.values(debutanteCourts).flat())];
+
+  // Create the Google-style datalist elements
+  if (guestNameInput) {
+    guestNameInput.setAttribute("list", "court-guests-list");
+    guestNameInput.setAttribute("placeholder", "Type your nickname or name...");
+    
+    const datalist = document.createElement("datalist");
+    datalist.id = "court-guests-list";
+    
+    // Populate autocomplete items
+    allCourtNames.forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      datalist.appendChild(option);
+    });
+    
+    guestNameInput.parentNode.appendChild(datalist);
+  }
+
   function proceedToInvitation() {
     nameScreen.classList.add("hidden");
     nameScreen.classList.remove("flex");
@@ -792,75 +813,78 @@ document.addEventListener("DOMContentLoaded", () => {
     galleryObserver.observe(document.getElementById("pictorial-gallery"));
     
     setTimeout(() => {
-      document.querySelector(".hero-visual").scrollIntoView({ behavior: "smooth" });
+      const hero = document.querySelector(".hero-visual");
+      if (hero) hero.scrollIntoView({ behavior: "smooth" });
     }, 200);
   }
 
   // STEP 1: Click Envelope Button -> Opens the custom inline Name input layout screen
-  document.getElementById("open-envelope").addEventListener("click", () => {
-    envelopeScreen.classList.add("opened");
-    nameScreen.classList.remove("hidden");
-    nameScreen.classList.add("flex");
-  });
+  if (document.getElementById("open-envelope")) {
+    document.getElementById("open-envelope").addEventListener("click", () => {
+      envelopeScreen.classList.add("opened");
+      nameScreen.classList.remove("hidden");
+      nameScreen.classList.add("flex");
+    });
+  }
 
-  // STEP 2: Handle Submit Form Logic with Two-Way Overlap Matching
-  document.getElementById("guest-name-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    let userName = guestNameInput.value.trim();
+  // STEP 2: Handle Submit Form Verification Logic
+  if (document.getElementById("guest-name-form")) {
+    document.getElementById("guest-name-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      let userName = guestNameInput.value.trim();
 
-    if (!userName) {
-      proceedToInvitation();
-      return;
-    }
-
-    let foundCourts = [];
-    let cleanInput = userName.toLowerCase();
-
-    // Loop over each court category
-    for (let courtName in debutanteCourts) {
-      let isMatchInCourt = debutanteCourts[courtName].some(courtFullName => {
-        let cleanCourtName = courtFullName.toLowerCase();
-        
-        let courtWords = cleanCourtName.split(/\s+/).filter(word => 
-          word.length > 2 && !["tita", "tito", "sir", "ma'am", "maam", "lolo", "ninang", "ninong", "mowah", "pastor", "engr"].includes(word)
-        );
-
-        return courtWords.some(word => cleanInput.includes(word));
-      });
-
-      if (isMatchInCourt) {
-        foundCourts.push(courtName);
+      if (!userName) {
+        proceedToInvitation();
+        return;
       }
-    }
 
-    // Hide the naming screen and reveal the role result screen
-    nameScreen.classList.add("hidden");
-    nameScreen.classList.remove("flex");
-    roleScreen.classList.remove("hidden");
-    roleScreen.classList.add("flex");
+      let foundCourts = [];
+      let cleanInput = userName.toLowerCase();
 
-    // Display customized results
-    if (foundCourts.length > 0) {
-      guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.`;
-    } else {
-      // Your chosen explicit but friendly fallback message
-      guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>Your name isn't listed in any of the 18s courts, so we have you down as a regular guest.`;
-    }
-  });
+      // Check which entourage group matches the submitted name string
+      for (let courtName in debutanteCourts) {
+        let isMatchInCourt = debutanteCourts[courtName].some(courtFullName => {
+          return courtFullName.toLowerCase() === cleanInput || courtFullName.toLowerCase().includes(cleanInput);
+        });
+
+        if (isMatchInCourt) {
+          foundCourts.push(courtName);
+        }
+      }
+
+      // Transition views to the status greeting banner
+      nameScreen.classList.add("hidden");
+      nameScreen.classList.remove("flex");
+      roleScreen.classList.remove("hidden");
+      roleScreen.classList.add("flex");
+
+      if (foundCourts.length > 0) {
+        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.`;
+      } else {
+        guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>Your name isn't listed in any of the 18s courts, so we have you down as a regular guest.`;
+      }
+    });
+  }
 
   // STEP 3: Handle navigation on screen buttons
-  document.getElementById("name-skip").addEventListener("click", () => {
-    proceedToInvitation();
-  });
+  if (document.getElementById("name-skip")) {
+    document.getElementById("name-skip").addEventListener("click", () => {
+      proceedToInvitation();
+    });
+  }
 
-  document.getElementById("role-continue").addEventListener("click", () => {
-    proceedToInvitation();
-  });
+  if (document.getElementById("role-continue")) {
+    document.getElementById("role-continue").addEventListener("click", () => {
+      proceedToInvitation();
+    });
+  }
 
-  document.getElementById("continue-button").addEventListener("click", () => {
-    const gallery = document.getElementById("pictorial-gallery");
-    gallery.scrollIntoView({ behavior: "smooth" });
-  });
+  if (document.getElementById("continue-button")) {
+    document.getElementById("continue-button").addEventListener("click", () => {
+      const gallery = document.getElementById("pictorial-gallery");
+      if (gallery) gallery.scrollIntoView({ behavior: "smooth" });
+    });
+  }
 
   const galleryObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -885,10 +909,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateCountdown() {
     const eventDate = new Date("2026-10-25T16:00:00+08:00").getTime();
     const distance = Math.max(0, eventDate - Date.now());
-    document.getElementById("days").textContent = String(Math.floor(distance / 86400000)).padStart(2, "0");
-    document.getElementById("hours").textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, "0");
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minsEl = document.getElementById("minutes");
+    const secsEl = document.getElementById("seconds");
+    
+    if (daysEl) daysEl.textContent = String(Math.floor(distance / 86400000)).padStart(2, "0");
+    if (hoursEl) hoursEl.textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, "0");
+    if (minsEl) minsEl.textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, "0");
+    if (secsEl) secsEl.textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, "0");
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -896,7 +925,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
-    document.getElementById("progress-bar").style.width = `${progress}%`;
+    const bar = document.getElementById("progress-bar");
+    if (bar) bar.style.width = `${progress}%`;
   }, { passive: true });
 });
 </script>
