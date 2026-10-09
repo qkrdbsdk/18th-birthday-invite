@@ -784,7 +784,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Helper function to transition straight into the main invitation view
   function proceedToInvitation() {
     nameScreen.classList.add("hidden");
+    nameScreen.classList.remove("flex");
     roleScreen.classList.add("hidden");
+    roleScreen.classList.remove("flex");
     invitation.classList.remove("hidden");
     invitation.style.animation = "pageIn 0.8s ease both";
     galleryObserver.observe(document.getElementById("pictorial-gallery"));
@@ -822,15 +824,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Process logic results based on user status
+    // Hide the naming screen and reveal the role result screen
+    nameScreen.classList.add("hidden");
+    nameScreen.classList.remove("flex");
+    roleScreen.classList.remove("hidden");
+    roleScreen.classList.add("flex");
+
+    // Clear and direct messages
     if (foundCourts.length > 0) {
-      nameScreen.classList.add("hidden");
-      nameScreen.classList.remove("flex");
-      roleScreen.classList.remove("hidden");
-      roleScreen.classList.add("flex");
       guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are part of the <span style="color:#f4d8df; font-weight:600; text-transform: capitalize;">${foundCourts.join(" and ")}</span> court.`;
     } else {
-      proceedToInvitation();
+      guestRoleMessage.innerHTML = `Welcome, <span style="color:#d9b76a; font-weight:600;">${userName}</span>!<br>You are arriving as a <span style="color:#f4d8df; font-weight:600;">guest</span> and are not part of the debutante's court.`;
     }
   });
 
