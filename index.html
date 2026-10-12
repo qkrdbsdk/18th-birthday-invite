@@ -381,7 +381,7 @@
       <h2 class="serif text-3xl text-[#fff9ef]">What’s your name?</h2>
       <p class="mt-3 text-[#d6c3dc]">We’ll check whether you have a special role in the celebration.</p>
       <form id="guest-name-form" class="mt-6" onsubmit="event.preventDefault()">
-        <label for="guest-name" class="mb-2 block text-left text-sm text-[#f4d8df]">Your name</label>
+        <label for="guest-name" class="mb-2 block text-left text-sm text-[#f4d8df]">Your full name (please exclude your middle name.) </label>
         <input id="guest-name" name="guest-name" type="text" autocomplete="name"
           placeholder="Enter your name"
           class="w-full rounded-lg border border-[#d9b76a]/50 bg-[#160d2b] px-4 py-3 text-white">
@@ -779,7 +779,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (guestNameInput && !suggestionsBox) {
     guestNameInput.removeAttribute("list");
     guestNameInput.setAttribute("autocomplete", "off");
-    guestNameInput.setAttribute("placeholder", "Type your name...");
+    guestNameInput.setAttribute("placeholder", "Enter your name (without your middle name)...");
     
     const wrapper = guestNameInput.parentNode;
     if (wrapper) {
